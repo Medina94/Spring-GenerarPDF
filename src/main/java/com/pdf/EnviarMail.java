@@ -30,7 +30,7 @@ public class EnviarMail {
 
             // Se compone la parte del texto
             BodyPart texto = new MimeBodyPart();
-            texto.setText("Texto del mensaje");
+            texto.setText("Este es un mail de prueba");
 
             // Se compone el adjunto con la imagen
             BodyPart adjunto = new MimeBodyPart();
@@ -46,11 +46,13 @@ public class EnviarMail {
             // Se compone el correo, dando to, from, subject y el
             // contenido.
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("cristian.medina94@gmail.com"));
-            message.addRecipient(
-                Message.RecipientType.TO,
-                new InternetAddress("cristian.medina94@gmail.com"));
-            message.setSubject("Prueba");
+            //e-mail del emisor
+            message.setFrom(new InternetAddress("mail.prueba@gmail.com"));
+            //e-mail del receptor
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("cristian.medina94@gmail.com"));
+            //Asunto del mail
+            message.setSubject("Prueba de envio de mail");
+            //seteo el contenido del mail con el texto y el archivo adjunto
             message.setContent(multiParte);
 
             // Se envia el correo.
