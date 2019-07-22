@@ -25,5 +25,11 @@ public class ServicioImpl implements Servicio{
 		
 		return persona.permutarNombre(per);
 	}
+
+	//-----------------------------------------------------------------------------------
+	@Override
+	public List<PersonaImpl> getListado(PersonaImpl per) {
+		return persona.listarPermutaciones(per);
+	}
 	
 }

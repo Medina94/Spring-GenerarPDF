@@ -45,6 +45,32 @@
 			<artifactId>groovy-all</artifactId>
 			<version>2.4.5</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<!-- libreria para el envio de mails -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
+		<!-- envio de mail con spring boot starter mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>2.1.6.RELEASE</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.1.8.RELEASE</version>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>

@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import javax.swing.JOptionPane;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -32,7 +32,7 @@ public class CreatePDF {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	public void traerReporte() {
 		try {
-			input = new FileInputStream("reporte/Reporte.jrxml");
+			input = new FileInputStream("C:\\Users\\cmedina\\Desktop\\reporte\\Reporte.jrxml");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -53,7 +53,7 @@ public class CreatePDF {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	public void GuardarPDFenRuta() {
 		try {
-			JasperExportManager.exportReportToPdfFile(print, "C:\\Users\\cmedina\\Desktop\\ReportePersona.pdf");
+			JasperExportManager.exportReportToPdfFile(print, "C:\\Users\\cmedina\\Desktop\\ReportePersona2.pdf");
 			
 		} catch (JRException e) {
 			e.printStackTrace();
@@ -62,5 +62,7 @@ public class CreatePDF {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	public void visualizarPDF() {
 		view.viewReport(print, false);
+		
 	}
+	
 }
