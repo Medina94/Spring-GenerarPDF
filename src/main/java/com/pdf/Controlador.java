@@ -44,7 +44,7 @@ public class Controlador {
 	
 	// agregando al path con requestMapping no funciona
 	//@RequestMapping("/download")
-    @GetMapping(path = "/download", produces = {MediaType.APPLICATION_PDF_VALUE})
+    @GetMapping(path = "/download", produces = {MediaType.APPLICATION_PDF_VALUE}) //tambien funciona usando: produces = ("application/pdf")
 	public byte[] descargar(){
 		
 		try {
