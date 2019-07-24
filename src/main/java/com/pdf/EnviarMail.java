@@ -13,9 +13,25 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+
 public class EnviarMail {
+	@Autowired
+	private Mail mail;
 	
-	public void sendMail() {
+	
+	public Mail getMail() {
+		return mail;
+	}
+	public void setMail(Mail mail) {
+		this.mail = mail;
+	}
+
+//-------------------------------------------------------------------------------------------------------
+	public void sendMail(Mail dato) {
+		setMail(dato);
 		try
         {
             Properties props = new Properties();
@@ -30,7 +46,7 @@ public class EnviarMail {
 
             // Se compone la parte del texto
             BodyPart texto = new MimeBodyPart();
-            texto.setText("Este es un mail de prueba");
+            texto.setText(mail.getMensaje());
 
             // Se compone el adjunto con la imagen
             BodyPart adjunto = new MimeBodyPart();
@@ -47,11 +63,11 @@ public class EnviarMail {
             // contenido.
             MimeMessage message = new MimeMessage(session);
             //e-mail del emisor
-            message.setFrom(new InternetAddress("mail.prueba@gmail.com"));
+            message.setFrom(new InternetAddress(mail.getEmisor()));
             //e-mail del receptor
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("cristian.medina94@gmail.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail.getReceptor()));
             //Asunto del mail
-            message.setSubject("Prueba de envio de mail");
+            message.setSubject(mail.getAsunto());
             //seteo el contenido del mail con el texto y el archivo adjunto
             message.setContent(multiParte);
 

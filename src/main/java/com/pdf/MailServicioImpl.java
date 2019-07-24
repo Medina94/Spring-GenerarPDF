@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 public class MailServicioImpl implements MailServicio{
 
 	@Override
-	public void enviarMail() {
-		EnviarMail mail = new EnviarMail();
-		mail.sendMail();
+	public void enviarMail(Mail mail) {
+		EnviarMail send = new EnviarMail();
+		send.sendMail(mail);
 	}
 	
 }

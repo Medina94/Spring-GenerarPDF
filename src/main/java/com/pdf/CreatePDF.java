@@ -1,10 +1,11 @@
 package com.pdf;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
-
-import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -63,6 +64,16 @@ public class CreatePDF {
 	public void visualizarPDF() {
 		view.viewReport(print, false);
 		
+	}
+	//--------------------------------------------------------------------------------------------------------------------------------------
+	public byte[] pdfBinario() throws IOException {
+		//byte[] b = null;
+		
+		File file = new File("C:\\Users\\cmedina\\Desktop\\ReportePersona2.pdf");
+		byte[] bytes = Files.readAllBytes(file.toPath());
+		
+		
+		return bytes;
 	}
 	
 }

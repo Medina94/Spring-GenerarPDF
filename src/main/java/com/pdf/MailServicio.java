@@ -1,5 +1,5 @@
 package com.pdf;
 
 public interface MailServicio {
-	public void enviarMail();
+	public void enviarMail(Mail mail);
 }

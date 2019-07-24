@@ -1,5 +1,8 @@
 package com.pdf;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,47 +12,51 @@ import java.util.Set;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PersonaImpl implements Persona{
+public class PersonaImpl implements Persona {
 	private String id;
-	private String nombre;	
-	//private String email;
-	//---------------------------------------------------------------------------------
-	//CONSTRUCTOR
-	public PersonaImpl() {}
-	
+	private String nombre;
+
+	// private String email;
+	// ---------------------------------------------------------------------------------
+	// CONSTRUCTOR
+	public PersonaImpl() {
+	}
+
 	public PersonaImpl(String id, String nombre) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 	}
+
 	public PersonaImpl(String id, String nombre, String email) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		//this.email = email;
+		// this.email = email;
 	}
 
-	//---------------------------------------------------------------------------------
-	//get y set
+	// ---------------------------------------------------------------------------------
+	// get y set
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	/*public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}*/
-	//---------------------------------------------------------------------------------
+	/*
+	 * public String getEmail() { return email; } public void setEmail(String email)
+	 * { this.email = email; }
+	 */
+	// ---------------------------------------------------------------------------------
 
 	@Override
 	public List<PersonaImpl> permutarNombre(PersonaImpl per) {
@@ -83,7 +90,7 @@ public class PersonaImpl implements Persona{
 
 		for (int i = 0; i < listaString.size(); i++) {
 			PersonaImpl p = new PersonaImpl();
-			p.setId(""+(Integer.parseInt(per.id)+i));
+			p.setId("" + (Integer.parseInt(per.id) + i));
 			p.setNombre(listaString.get(i));
 
 			lista.add(p);
@@ -96,40 +103,52 @@ public class PersonaImpl implements Persona{
 		crear.GuardarPDFenRuta();
 		return lista;
 	}
-	//-----------------------------------------------------------------------------------------------------------------
+
+	// -----------------------------------------------------------------------------------------------------------------
 	// PERMUTACION DE STRING CON SET Y RECURSIVIDAD
 	private Set<String> permutation(String prefix, String str) {
-    	Set<String> permutations = new HashSet<>();
-        int n = str.length();
-        if (n == 0) {
-            permutations.add(prefix);
-        } else {
-            for (int i = 0; i < n; i++) {
-                permutations.addAll(permutation(prefix + str.charAt(i), str.substring(i + 1, n) + str.substring(0, i)));
-            }
-        }
-        return permutations;
-    }
-	//------------------------------------------------------------------------------------------------------------------
+		Set<String> permutations = new HashSet<>();
+		int n = str.length();
+		if (n == 0) {
+			permutations.add(prefix);
+		} else {
+			for (int i = 0; i < n; i++) {
+				permutations.addAll(permutation(prefix + str.charAt(i), str.substring(i + 1, n) + str.substring(0, i)));
+			}
+		}
+		return permutations;
+	}
+
+	// ------------------------------------------------------------------------------------------------------------------
 	@Override
-	public List<PersonaImpl> listarPermutaciones(PersonaImpl persona){
+	public List<PersonaImpl> listarPermutaciones(PersonaImpl persona) {
 		List<PersonaImpl> lista = new ArrayList();
 		Set<String> permutaciones = permutation("", persona.getNombre());
-		int index=0;
-		for(Iterator it = permutaciones.iterator(); it.hasNext();) {
+		int index = 0;
+		for (Iterator it = permutaciones.iterator(); it.hasNext();) {
 			PersonaImpl per = new PersonaImpl();
-			per.setId(""+index);
+			per.setId("" + index);
 			per.setNombre((String) it.next());
 			lista.add(per);
 			index++;
 		}
-		
+
 		CreatePDF crear = new CreatePDF();
 		crear.cargarLista(lista);
 		crear.traerReporte();
 		crear.crearReporte();
 		crear.GuardarPDFenRuta();
-		
+
 		return lista;
+	}
+
+	// -----------------------------------------------------------------
+	@Override
+	public byte[] convert() throws IOException {
+		// byte[] b = null;
+		File file = new File("C:\\Users\\cmedina\\Desktop\\ReportePersona2.pdf");
+		byte[] bytes = Files.readAllBytes(file.toPath());
+
+		return bytes;
 	}
 }
