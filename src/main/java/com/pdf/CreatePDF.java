@@ -33,22 +33,26 @@ public class CreatePDF {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	public void traerReporte() {
 		try {
-			input = new FileInputStream("C:\\Users\\cmedina\\Desktop\\reporte\\Reporte.jrxml");
+			input = new FileInputStream("reporte/Reporte.jrxml");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 	//--------------------------------------------------------------------------------------------------------------------------------------
-	public void crearReporte() {
+	public byte[] crearReporte() {
 		try {
 			design = JRXmlLoader.load(input);
 			report = JasperCompileManager.compileReport(design);
 			print = JasperFillManager.fillReport(report, null, data);
 			
-			GuardarPDFenRuta();
+			// Exporto el Pdf pero no lo guardo en disco, sino que lo paso a byte
+			byte[] b = JasperExportManager.exportReportToPdf(print);
+			return b;
+			//GuardarPDFenRuta();
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
+		return new byte[] {};
 		
 	}
 	//--------------------------------------------------------------------------------------------------------------------------------------
@@ -68,12 +72,14 @@ public class CreatePDF {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	public byte[] pdfBinario() throws IOException {
 		//byte[] b = null;
-		
+		/*traerReporte();
+		crearReporte();
 		File file = new File("C:\\Users\\cmedina\\Desktop\\ReportePersona2.pdf");
 		byte[] bytes = Files.readAllBytes(file.toPath());
-		
-		
-		return bytes;
+		*/
+		// Antes traia un Pdf desde un ruta del disco. 
+		// Ahora retorno un byte[] que me devuelve el metodo crear reporte
+		return crearReporte();
 	}
 	
 }

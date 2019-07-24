@@ -59,6 +59,7 @@ public class Controlador {
 	
 	
 	@RequestMapping("/mail")
+	
 	@GetMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public void sendMail(@RequestBody Mail mail) {
 		//String mensaje = body + "\n\nDatos contacto: "+"\nNombre: "+name+"\nEmail: "+mail;
