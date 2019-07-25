@@ -9,11 +9,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Entity
 public class PersonaImpl implements Persona {
+	@Id
 	private String id;
+	@Column(name = "Nombre", length = 30, nullable = false)
 	private String nombre;
 
 	// private String email;

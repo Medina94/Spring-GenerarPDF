@@ -4,8 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.io.Writer;
 import java.util.List;
+
+import org.apache.lucene.index.MergePolicy;
+
+import com.lowagie.text.pdf.PdfDocument;
+import com.lowagie.text.pdf.PdfReader;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -81,5 +86,7 @@ public class CreatePDF {
 		// Ahora retorno un byte[] que me devuelve el metodo crear reporte
 		return crearReporte();
 	}
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
+	
 	
 }

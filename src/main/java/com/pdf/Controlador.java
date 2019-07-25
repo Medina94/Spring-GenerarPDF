@@ -1,14 +1,7 @@
 package com.pdf;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,20 +21,23 @@ public class Controlador {
 	private Persona persona;
 	@Autowired
 	private MailServicio send;
-	//------------------------------------------------------------------------------------
+	@Autowired
+	private PersonaRepo repo;
+	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
 	/*@RequestMapping("/permutar")
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<PersonaImpl> traerPersonas(@RequestBody PersonaImpl per){
 		return servicio.traerLista(per);
 	}
 	*/
-	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping("/permutar")
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<PersonaImpl> traerPersonas(@RequestBody PersonaImpl per){
 		return servicio.getListado(per);
 	}
-	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
 	// agregando al path con requestMapping no funciona
 	//@RequestMapping("/download")
     @GetMapping(path = "/download", produces = {MediaType.APPLICATION_PDF_VALUE}) //tambien funciona usando: produces = ("application/pdf")
@@ -55,9 +51,7 @@ public class Controlador {
 		}
 		return new byte[] {};
 	}
-	
-	
-	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------	
 	@RequestMapping("/mail")
 	
 	@GetMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -65,5 +59,8 @@ public class Controlador {
 		//String mensaje = body + "\n\nDatos contacto: "+"\nNombre: "+name+"\nEmail: "+mail;
 		send.enviarMail(mail);
 	}
-	
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
+	public PersonaImpl insertarPersona(@RequestBody PersonaImpl per) {
+		return repo.save(per);
+	}
 }
