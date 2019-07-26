@@ -23,7 +23,7 @@ public class ServicioImpl implements Servicio{
 	@Override
 	public List<PersonaImpl> traerLista(PersonaImpl per) {
 		
-		return persona.permutarNombre(per);
+		return persona.listaPersonas(per);
 	}
 
 	//-----------------------------------------------------------------------------------

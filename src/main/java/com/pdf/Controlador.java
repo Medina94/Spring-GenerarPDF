@@ -1,6 +1,7 @@
 package com.pdf;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,16 @@ public class Controlador {
 	}
 	*/
 	//-----------------------------------------------------------------------------------------------------------------------------------------------
+	/*public byte[] descargarPdfPasandoParametro(@RequestParam (value = "nombre") String txt) {
+		try {
+			return persona.convert();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new byte[] {};
+	}*/
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping("/permutar")
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<PersonaImpl> traerPersonas(@RequestBody PersonaImpl per){
@@ -53,14 +64,21 @@ public class Controlador {
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------------------	
 	@RequestMapping("/mail")
-	
 	@GetMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public void sendMail(@RequestBody Mail mail) {
 		//String mensaje = body + "\n\nDatos contacto: "+"\nNombre: "+name+"\nEmail: "+mail;
 		send.enviarMail(mail);
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------------------
+	@PostMapping(path = "/insertar", consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public PersonaImpl insertarPersona(@RequestBody PersonaImpl per) {
 		return repo.save(per);
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
+	@PostMapping(path = "insertarMuchos", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public List<PersonaImpl> insertarLista(@RequestBody PersonaImpl per){
+		List<PersonaImpl> lista = new ArrayList();
+		lista = servicio.traerLista(per);	
+		return repo.saveAll(lista);
 	}
 }
