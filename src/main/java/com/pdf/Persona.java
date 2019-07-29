@@ -8,5 +8,4 @@ public interface Persona {
 	public List<PersonaImpl> permutarNombre(PersonaImpl per);
 	public List<PersonaImpl> listarPermutaciones(PersonaImpl per);
 	public byte[] convert() throws IOException;
-	public List<PersonaImpl> listaPersonas(PersonaImpl per);
 }

@@ -11,20 +11,16 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Entity
+//@Entity(name = "Lista")
 public class PersonaImpl implements Persona {
-	@Id ()
-	@GeneratedValue
-	private int id;
-	/*@Column (name = "DNI")
-	private long dni;*/
-	@Column(name = "Nombre", length = 30)
+	//@Id
+	private String id;
+	//@Column(name = "Nombre", length = 30, nullable = false)
 	private String nombre;
 
 	// private String email;
@@ -33,13 +29,13 @@ public class PersonaImpl implements Persona {
 	public PersonaImpl() {
 	}
 
-	public PersonaImpl(int id, String nombre) {
+	public PersonaImpl(String id, String nombre) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 	}
 
-	public PersonaImpl(int id, String nombre, String email) {
+	public PersonaImpl(String id, String nombre, String email) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -48,11 +44,11 @@ public class PersonaImpl implements Persona {
 
 	// ---------------------------------------------------------------------------------
 	// get y set
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -101,7 +97,7 @@ public class PersonaImpl implements Persona {
 
 		for (int i = 0; i < listaString.size(); i++) {
 			PersonaImpl p = new PersonaImpl();
-			p.setId(per.getId() + i);
+			p.setId("" + (Integer.parseInt(per.id) + i));
 			p.setNombre(listaString.get(i));
 
 			lista.add(p);
@@ -138,7 +134,7 @@ public class PersonaImpl implements Persona {
 		int index = 0;
 		for (Iterator it = permutaciones.iterator(); it.hasNext();) {
 			PersonaImpl per = new PersonaImpl();
-			per.setId(index);
+			per.setId("" + index);
 			per.setNombre((String) it.next());
 			lista.add(per);
 			index++;
@@ -161,21 +157,5 @@ public class PersonaImpl implements Persona {
 		byte[] bytes = Files.readAllBytes(file.toPath());
 
 		return bytes;
-	}
-	//----------------------------------------------------------------------
-
-	@Override
-	public List<PersonaImpl> listaPersonas(PersonaImpl persona) {
-		List<PersonaImpl> lista = new ArrayList();
-		Set<String> permutaciones = permutation("", persona.getNombre());
-		int index = 0;
-		for (Iterator it = permutaciones.iterator(); it.hasNext();) {
-			PersonaImpl per = new PersonaImpl();
-			per.setId(index);
-			per.setNombre((String) it.next());
-			lista.add(per);
-			index++;
-		}
-		return lista;
 	}
 }
